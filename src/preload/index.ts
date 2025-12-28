@@ -13,6 +13,11 @@ const api: IpcApi = {
   getSettings: () => ipcRenderer.invoke('ui:getSettings') as Promise<Settings>,
   setSettings: (patch: Partial<Settings>) => ipcRenderer.invoke('ui:setSettings', patch) as Promise<Settings>,
 
+  windowMinimize: () => ipcRenderer.invoke('win:minimize') as Promise<void>,
+  windowToggleMaximize: () => ipcRenderer.invoke('win:toggleMaximize') as Promise<void>,
+  windowClose: () => ipcRenderer.invoke('win:close') as Promise<void>,
+  windowIsMaximized: () => ipcRenderer.invoke('win:isMaximized') as Promise<boolean>,
+
   onEvent: (handler: (evt: DownloadEvent) => void) => {
     const listener = (_: unknown, evt: DownloadEvent) => handler(evt);
     ipcRenderer.on('dm:event', listener);

@@ -1,12 +1,17 @@
 .root {
   height: 100vh;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* critical: allows children to scroll in flex layouts */
 }
 
 .content {
-  height: calc(100vh - 32px);
+  flex: 1;
   overflow: auto;
   padding: 20px;
+  min-height: 0; /* critical: enables scrolling when content overflows */
 }
 
 .page {

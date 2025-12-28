@@ -12,7 +12,6 @@ dist-electron/
 dist-renderer/
 out/
 release/
-build/
 .cache/
 
 # Electron builder

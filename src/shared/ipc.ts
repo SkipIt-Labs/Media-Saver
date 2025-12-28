@@ -21,6 +21,12 @@ export type IpcApi = {
   getSettings(): Promise<Settings>;
   setSettings(patch: Partial<Settings>): Promise<Settings>;
 
+  // Window controls (custom titlebar)
+  windowMinimize(): Promise<void>;
+  windowToggleMaximize(): Promise<void>;
+  windowClose(): Promise<void>;
+  windowIsMaximized(): Promise<boolean>;
+
   onEvent(handler: (evt: DownloadEvent) => void): () => void;
 };
 

@@ -5,7 +5,7 @@ import {
   Transition
 } from '@mantine/core';
 import type { DownloadEvent, ProgressSnapshot, Settings } from '@shared/types';
-import { HeaderBar } from './components/HeaderBar';
+import { TitleBar } from './components/TitleBar';
 import { ActionCard, type Mode } from './components/ActionCard';
 import { ProgressCard } from './components/ProgressCard';
 import { LogsCard, type UiLogLine } from './components/LogsCard';
@@ -173,15 +173,26 @@ export function App() {
   }
 
   return (
-    <AppShell className={styles.root} padding={0}>
+    <AppShell
+      className={styles.root}
+      padding={0}
+      styles={{
+        main: {
+          height: '100vh',
+          padding: 0,
+          display: 'flex',
+          flexDirection: 'column',
+          minHeight: 0
+        }
+      }}
+    >
       <AppShell.Main>
+        <TitleBar status={status} batchLabel={batchLabel} />
         <div className={styles.content}>
           <Transition mounted transition="pop" duration={200} timingFunction="ease">
             {(tStyles) => (
               <div className={styles.page} style={tStyles}>
                 <Stack gap={16}>
-                  <HeaderBar status={status} batchLabel={batchLabel} />
-
                   <ActionCard
                     settings={settings}
                     busy={busy}

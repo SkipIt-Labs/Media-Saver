@@ -8,7 +8,15 @@ export function HeaderBar(props: {
   batchLabel?: string | null;
 }) {
   return (
-    <Group justify="space-between" align="flex-start" wrap="nowrap">
+    <Group
+      justify="space-between"
+      align="flex-start"
+      wrap="nowrap"
+      style={{
+        WebkitAppRegion: 'drag',
+        paddingRight: 120 // keep clear of window controls (titleBarOverlay)
+      }}
+    >
       <Stack gap={6}>
         <Group gap={10} align="center">
           <div
@@ -36,7 +44,9 @@ export function HeaderBar(props: {
         </Group>
       </Stack>
 
-      <StatusPill status={props.status} rightLabel={props.batchLabel ?? null} />
+      <div style={{ WebkitAppRegion: 'no-drag' }}>
+        <StatusPill status={props.status} rightLabel={props.batchLabel ?? null} />
+      </div>
     </Group>
   );
 }

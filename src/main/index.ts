@@ -1,4 +1,4 @@
-import { app, BrowserWindow, dialog, ipcMain } from 'electron';
+import { app, BrowserWindow, dialog, ipcMain, Menu } from 'electron';
 import path from 'node:path';
 import fs from 'node:fs/promises';
 import { DownloadManager } from './download/DownloadManager';
@@ -7,6 +7,7 @@ import type { IpcChooseFolderResult, IpcChooseTxtResult, IpcStartBatchArgs, IpcS
 import type { DownloadEvent } from '../shared/types';
 
 const isDev = !app.isPackaged;
+const TITLEBAR_HEIGHT = 48;
 
 let mainWindow: BrowserWindow | null = null;
 let downloadManager: DownloadManager | null = null;
@@ -17,6 +18,10 @@ function sendToRenderer(evt: DownloadEvent) {
 }
 
 async function createMainWindow() {
+  const iconPath = isDev
+    ? path.join(process.cwd(), 'build', 'icon.ico')
+    : path.join(process.resourcesPath, 'icon.ico');
+
   mainWindow = new BrowserWindow({
     width: 980,
     height: 720,
@@ -24,6 +29,9 @@ async function createMainWindow() {
     minHeight: 640,
     backgroundColor: '#0b1020',
     show: false,
+    icon: iconPath,
+    autoHideMenuBar: true,
+    frame: false, // fully custom titlebar (renderer draws it)
     webPreferences: {
       contextIsolation: true,
       nodeIntegration: false,
@@ -31,6 +39,9 @@ async function createMainWindow() {
       preload: path.join(app.getAppPath(), 'dist-electron', 'preload', 'index.cjs')
     }
   });
+
+  // Remove the default application menu (File/Edit/View/Window/Help).
+  mainWindow.setMenuBarVisibility(false);
 
   mainWindow.on('ready-to-show', () => mainWindow?.show());
 
@@ -51,6 +62,21 @@ function parseUrlsFromTxt(contents: string): string[] {
 }
 
 async function registerIpc() {
+  ipcMain.handle('win:minimize', async () => {
+    mainWindow?.minimize();
+  });
+  ipcMain.handle('win:toggleMaximize', async () => {
+    if (!mainWindow) return;
+    if (mainWindow.isMaximized()) mainWindow.unmaximize();
+    else mainWindow.maximize();
+  });
+  ipcMain.handle('win:isMaximized', async () => {
+    return !!mainWindow?.isMaximized();
+  });
+  ipcMain.handle('win:close', async () => {
+    mainWindow?.close();
+  });
+
   ipcMain.handle('ui:chooseDestinationFolder', async (): Promise<IpcChooseFolderResult> => {
     const res = await dialog.showOpenDialog(mainWindow!, {
       title: 'Choose destination folder',
@@ -91,6 +117,10 @@ async function registerIpc() {
 
 async function main() {
   await app.whenReady();
+
+  // App user model id helps Windows show the right icon/grouping.
+  app.setAppUserModelId('com.skipit.media-saver');
+  Menu.setApplicationMenu(null);
 
   await createMainWindow();
 

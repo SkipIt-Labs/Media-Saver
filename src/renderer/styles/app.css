@@ -7,6 +7,10 @@ body {
   height: 100%;
 }
 
+#root {
+  height: 100%;
+}
+
 body {
   margin: 0;
   background:
@@ -33,6 +37,29 @@ body::before {
 :focus-visible {
   outline: 2px solid rgba(76, 125, 255, 0.7);
   outline-offset: 2px;
+}
+
+/* premium scrollbars (Chromium) */
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+*::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.14);
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border: 2px solid rgba(0, 0, 0, 0);
+  background-clip: padding-box;
 }
 
 

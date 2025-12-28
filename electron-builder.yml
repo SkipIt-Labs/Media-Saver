@@ -14,11 +14,18 @@ extraResources:
     to: bin
     filter:
       - "**/*"
+  - from: build/icon.ico
+    to: icon.ico
 win:
+  icon: build/icon.ico
   target:
     - nsis
+  signAndEditExecutable: false
   artifactName: "${productName}-Setup-${version}.${ext}"
 nsis:
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  include: build/installer.nsh
   oneClick: false
   perMachine: false
   allowToChangeInstallationDirectory: true

@@ -1,0 +1,174 @@
+:root {
+  /* CSS variables keep the look consistent and easy to tune */
+  --tb-h: 48px;
+  --tb-left: #07122a;      /* deep navy */
+  --tb-mid: #0b1220;       /* graphite */
+  --tb-right: #060812;     /* near-black */
+  --tb-text: #e5e7eb;      /* soft white */
+  --tb-accent: rgba(76, 125, 255, 0.55); /* subtle blue accent */
+  --tb-glow: rgba(76, 125, 255, 0.18);   /* diffused glow */
+}
+
+.bar {
+  height: var(--tb-h);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+
+  /* Why gradient: gives depth and "premium" feel without being flashy */
+  background: linear-gradient(90deg, var(--tb-left) 0%, var(--tb-mid) 55%, var(--tb-right) 100%);
+  position: relative;
+
+  /* Drag region: enables moving the frameless window */
+  -webkit-app-region: drag;
+  user-select: none;
+}
+
+/* Bottom micro-glow line: gives life with almost-zero distraction */
+.bar::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0%, var(--tb-accent) 45%, transparent 100%);
+  opacity: 0.55;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.iconWrap {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  opacity: 0.92;
+}
+
+.title {
+  font-weight: 650; /* semi-bold */
+  letter-spacing: 0.02em; /* subtle tracking */
+  color: var(--tb-text);
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Compact status chip: calm, minimal, no extra subtitle like "Media Saver" */
+.statusChip {
+  -webkit-app-region: no-drag;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  color: rgba(229,231,235,0.82);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  max-width: 340px;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.55);
+}
+
+.statusText {
+  white-space: nowrap;
+}
+
+.statusSub {
+  font-weight: 600;
+  color: rgba(229,231,235,0.55);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 160px;
+}
+
+.statusIdle .statusDot {
+  background: rgba(255,255,255,0.55);
+}
+
+.statusRunning .statusDot {
+  background: rgba(76,125,255,0.95);
+  box-shadow: 0 0 0 3px rgba(76,125,255,0.16), 0 0 14px rgba(76,125,255,0.22);
+}
+
+.statusDone .statusDot {
+  background: rgba(58, 208, 139, 0.95);
+  box-shadow: 0 0 0 3px rgba(58, 208, 139, 0.12), 0 0 14px rgba(58, 208, 139, 0.18);
+}
+
+.statusError .statusDot {
+  background: rgba(255, 120, 120, 0.95);
+  box-shadow: 0 0 0 3px rgba(255, 120, 120, 0.12), 0 0 14px rgba(255, 120, 120, 0.18);
+}
+
+/* Buttons must be non-draggable */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  -webkit-app-region: no-drag;
+}
+
+.btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px; /* rounded-square, soft corners */
+  border: 1px solid rgba(255,255,255,0.10);
+  background: rgba(255,255,255,0.04);
+  display: grid;
+  place-items: center;
+  color: rgba(229,231,235,0.85);
+  cursor: pointer;
+
+  /* Hover transitions: crisp but calm */
+  transition: box-shadow 160ms ease-out, background-color 160ms ease-out, border-color 160ms ease-out, transform 140ms ease-out;
+}
+
+.btn:hover {
+  border-color: rgba(255,255,255,0.16);
+  background: rgba(255,255,255,0.06);
+  box-shadow: 0 0 0 3px var(--tb-glow), 0 10px 26px rgba(0,0,0,0.35);
+}
+
+.btn:active {
+  transform: translateY(0.5px) scale(0.98);
+}
+
+/* Close: slightly more saturated glow on hover (not red by default) */
+.btnClose:hover {
+  box-shadow: 0 0 0 3px rgba(120, 180, 255, 0.20), 0 12px 30px rgba(0,0,0,0.38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+  .btn:active {
+    transform: none;
+  }
+}
+
+
