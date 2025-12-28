@@ -1,0 +1,62 @@
+name: Bug report
+description: Report a reproducible bug in Media Saver (SkipIt)
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing a bug! Please include as much detail as possible.
+
+  - type: input
+    id: version
+    attributes:
+      label: App version
+      description: The version shown in the app or in the release name.
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: OS
+      options:
+        - Windows 11
+        - Windows 10
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: what_happened
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Provide step-by-step instructions.
+      placeholder: |
+        1. Choose destination...
+        2. Paste URL...
+        3. Click Start...
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs (redact private data)
+      description: Copy/paste relevant logs from the Logs panel (remove personal info).
+      render: text
+    validations:
+      required: false
+
+

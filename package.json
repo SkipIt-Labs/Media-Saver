@@ -1,0 +1,42 @@
+{
+  "name": "media-saver",
+  "productName": "Media Saver",
+  "version": "0.1.0",
+  "description": "SkipIt - Media Saver (YouTube Downloader) - Electron + React (Windows-first)",
+  "main": "dist-electron/main/index.cjs",
+  "author": "SkipIt",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
+    "dev:renderer": "vite --config vite.renderer.config.ts",
+    "dev:electron": "wait-on tcp:5173 && tsup --config tsup.config.ts --watch --onSuccess \"electron .\"",
+    "build": "npm run build:renderer && npm run build:electron",
+    "build:renderer": "vite build --config vite.renderer.config.ts",
+    "build:electron": "tsup --config tsup.config.ts",
+    "dist": "npm run build && electron-builder --config electron-builder.yml"
+  },
+  "dependencies": {
+    "@mantine/core": "^7.14.3",
+    "@mantine/hooks": "^7.14.3",
+    "@tabler/icons-react": "^3.26.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.3",
+    "@types/react": "^18.3.18",
+    "@types/react-dom": "^18.3.5",
+    "concurrently": "^9.1.0",
+    "electron": "^32.2.2",
+    "electron-builder": "^25.1.8",
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "@vitejs/plugin-react": "^4.3.4",
+    "wait-on": "^8.0.2"
+  }
+}
+
+

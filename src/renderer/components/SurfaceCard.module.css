@@ -1,0 +1,51 @@
+.card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(10px);
+}
+
+.hoverable {
+  transition: transform 160ms ease, filter 160ms ease, border-color 160ms ease;
+}
+
+.hoverable:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.raised {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+.pulse {
+  animation: pulseRing 1000ms ease-out 1;
+}
+
+@keyframes pulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(76, 125, 255, 0.0), 0 18px 50px rgba(0, 0, 0, 0.55);
+  }
+  22% {
+    box-shadow: 0 0 0 3px rgba(76, 125, 255, 0.25), 0 18px 50px rgba(0, 0, 0, 0.55);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(76, 125, 255, 0.0), 0 18px 50px rgba(0, 0, 0, 0.55);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hoverable {
+    transition: none;
+  }
+  .hoverable:hover {
+    transform: none;
+  }
+  .pulse {
+    animation: none;
+  }
+}
+
+

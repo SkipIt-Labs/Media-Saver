@@ -1,0 +1,39 @@
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(1200px 700px at 20% -10%, rgba(76, 125, 255, 0.20), transparent 60%),
+    radial-gradient(900px 600px at 110% 10%, rgba(76, 125, 255, 0.12), transparent 55%),
+    linear-gradient(180deg, #060812 0%, #070A12 40%, #05060D 100%);
+  color: rgba(255, 255, 255, 0.92);
+  overflow: hidden; /* feels more app-like */
+}
+
+/* subtle noise overlay without heavy assets */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.04;
+  mix-blend-mode: overlay;
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+/* crisp focus ring for keyboard navigation */
+:focus-visible {
+  outline: 2px solid rgba(76, 125, 255, 0.7);
+  outline-offset: 2px;
+}
+
+
+

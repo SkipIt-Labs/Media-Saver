@@ -1,0 +1,26 @@
+appId: com.skipit.media-saver
+productName: Media Saver
+directories:
+  output: dist
+files:
+  - dist-electron/**
+  - dist-renderer/**
+  - package.json
+asar: true
+asarUnpack:
+  - dist-electron/main/download/**
+extraResources:
+  - from: resources/bin
+    to: bin
+    filter:
+      - "**/*"
+win:
+  target:
+    - nsis
+  artifactName: "${productName}-Setup-${version}.${ext}"
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+
+

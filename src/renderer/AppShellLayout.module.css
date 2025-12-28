@@ -1,0 +1,31 @@
+.root {
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  height: calc(100vh - 32px);
+  overflow: auto;
+  padding: 20px;
+}
+
+.page {
+  max-width: 1060px;
+  margin: 0 auto;
+  padding-bottom: 18px;
+}
+
+.grid2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+@media (min-width: 980px) {
+  .grid2 {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+
+

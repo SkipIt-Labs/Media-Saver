@@ -1,0 +1,50 @@
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  background: rgba(255, 255, 255, 0.04);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+}
+
+.idle .dot {
+  background: rgba(255, 255, 255, 0.55);
+}
+
+.running .dot {
+  background: rgba(76, 125, 255, 0.95);
+  box-shadow: 0 0 0 3px rgba(76, 125, 255, 0.18), 0 0 16px rgba(76, 125, 255, 0.35);
+}
+
+.done .dot {
+  background: rgba(58, 208, 139, 0.95);
+  box-shadow: 0 0 0 3px rgba(58, 208, 139, 0.14), 0 0 16px rgba(58, 208, 139, 0.25);
+}
+
+.error .dot {
+  background: rgba(255, 77, 77, 0.95);
+  box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.14), 0 0 16px rgba(255, 77, 77, 0.25);
+}
+
+.label {
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.sub {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.56);
+}
+
+
+

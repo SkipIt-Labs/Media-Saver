@@ -1,0 +1,62 @@
+name: Build Windows release
+
+on:
+  push:
+    tags:
+      - "v*"
+  workflow_dispatch: {}
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Policy: we do NOT commit binaries into git.
+      # For CI builds, maintainers can download trusted binaries here.
+      # NOTE: You should pin versions and verify SHA256 hashes for reproducible releases.
+      - name: Download yt-dlp + FFmpeg (maintainer responsibility)
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path resources/bin | Out-Null
+
+          # yt-dlp (example: latest; recommended: pin a version + verify hash)
+          Invoke-WebRequest -Uri "https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe" -OutFile "resources/bin/yt-dlp.exe"
+
+          # FFmpeg LGPL build (example link; recommended: pin a version + verify hash)
+          # Replace the URL below with your chosen trusted LGPL build source.
+          $ffmpegZip = "ffmpeg-lgpl.zip"
+          Invoke-WebRequest -Uri "https://github.com/BtbN/FFmpeg-Builds/releases/latest/download/ffmpeg-master-latest-win64-lgpl.zip" -OutFile $ffmpegZip
+          Expand-Archive -Path $ffmpegZip -DestinationPath ".ffmpeg" -Force
+          Remove-Item $ffmpegZip -Force
+
+          $ffmpegExe = Get-ChildItem -Recurse ".ffmpeg" -Filter "ffmpeg.exe" | Select-Object -First 1
+          $ffprobeExe = Get-ChildItem -Recurse ".ffmpeg" -Filter "ffprobe.exe" | Select-Object -First 1
+          if (-not $ffmpegExe) { throw "ffmpeg.exe not found in archive" }
+
+          Copy-Item $ffmpegExe.FullName "resources/bin/ffmpeg.exe" -Force
+          if ($ffprobeExe) { Copy-Item $ffprobeExe.FullName "resources/bin/ffprobe.exe" -Force }
+
+      - name: Build installer
+        run: npm run dist
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Media-Saver-Windows
+          path: |
+            dist/**
+
+
