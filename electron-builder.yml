@@ -20,7 +20,6 @@ win:
   icon: build/icon.ico
   target:
     - nsis
-  signAndEditExecutable: false
   artifactName: "${productName}-Setup-${version}.${ext}"
 nsis:
   installerIcon: build/icon.ico

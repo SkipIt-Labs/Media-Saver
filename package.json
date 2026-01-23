@@ -1,7 +1,7 @@
 {
   "name": "media-saver",
   "productName": "Media Saver",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "SkipIt - Media Saver (YouTube Downloader) - Electron + React (Windows-first)",
   "main": "dist-electron/main/index.cjs",
   "author": "SkipIt",
