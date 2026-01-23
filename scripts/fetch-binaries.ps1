@@ -28,20 +28,11 @@ $ffprobePath = Join-Path $binDir "ffprobe.exe"
 
 if (-not (Test-Path $ytDlpPath) -or $Force) {
   if (-not $YtDlpUrl) {
-    throw "YTDLP_URL not set. Example: `$env:YTDLP_URL='https://github.com/yt-dlp/yt-dlp/releases/latest/download/yt-dlp.exe'"
+    throw "YTDLP_URL not set. Example: `$env:YTDLP_URL='https://.../yt-dlp.exe'"
   }
   Download-File $YtDlpUrl $ytDlpPath
 } else {
   Write-Step "yt-dlp.exe already exists, skipping."
-}
-
-if ((Test-Path $ffmpegPath) -and -not $Force) {
-  Write-Step "ffmpeg.exe already exists, skipping."
-  if ((Test-Path $ffprobePath) -and -not $Force) {
-    Write-Step "ffprobe.exe already exists, skipping."
-  }
-  Write-Step "Done. Binaries are in resources/bin."
-  return
 }
 
 if ($FfmpegZipUrl) {
