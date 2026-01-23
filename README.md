@@ -41,6 +41,7 @@ Add screenshots here:
   - `resources/bin/yt-dlp.exe`
   - `resources/bin/ffmpeg.exe`
   - `resources/bin/ffprobe.exe` (recommended)
+  - Optional helper: `npm run prepare:bin` (requires env vars `YTDLP_URL` and either `FFMPEG_ZIP_URL` or `FFMPEG_URL`).
 
 Note: binaries are **not committed** to this repo. See `resources/bin/README.md`.
 
@@ -49,6 +50,7 @@ Cross-platform note: the UI is cross-platform, but this repo is primarily tested
 ### Install / Run (dev)
 ```bash
 npm install
+npm run prepare:bin
 npm run dev
 ```
 

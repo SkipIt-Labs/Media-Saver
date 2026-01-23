@@ -1,7 +1,7 @@
 {
   "name": "media-saver",
   "productName": "Media Saver",
-  "version": "0.1.1",
+  "version": "0.1.3",
   "description": "SkipIt - Media Saver (YouTube Downloader) - Electron + React (Windows-first)",
   "main": "dist-electron/main/index.cjs",
   "author": "SkipIt",
@@ -9,13 +9,14 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "prepare:bin": "powershell -ExecutionPolicy Bypass -File scripts/fetch-binaries.ps1",
     "dev": "concurrently -k \"npm:dev:renderer\" \"npm:dev:electron\"",
     "dev:renderer": "vite --config vite.renderer.config.ts",
     "dev:electron": "wait-on tcp:5173 && tsup --config tsup.config.ts --watch --onSuccess \"electron .\"",
     "build": "npm run build:renderer && npm run build:electron",
     "build:renderer": "vite build --config vite.renderer.config.ts",
     "build:electron": "tsup --config tsup.config.ts",
-    "dist": "npm run build && electron-builder --config electron-builder.yml"
+    "dist": "npm run prepare:bin && npm run build && electron-builder --config electron-builder.yml"
   },
   "dependencies": {
     "@mantine/core": "^7.14.3",
